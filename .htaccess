@@ -1,0 +1,67 @@
+# ===== .HTACCESS PARA APACHE =====
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+    
+    # Redirigir a index.php si no es archivo o directorio existente
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.php [QSA,L]
+    
+    # Permitir acceso a archivos estáticos
+    RewriteCond %{REQUEST_FILENAME} \.(js|css|png|jpg|jpeg|gif|svg|ico|txt|xml|webmanifest)$ [NC]
+    RewriteRule ^ - [L]
+</IfModule>
+
+<IfModule mod_headers.c>
+    # Habilitar CORS para API
+    Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+    Header set Access-Control-Allow-Headers "Content-Type, Authorization"
+    
+    # Configurar cache para archivos estáticos
+    <FilesMatch "\.(jpg|jpeg|png|gif|ico|css|js|svg|woff|woff2|ttf|eot)$">
+        Header set Cache-Control "max-age=31536000, public"
+    </FilesMatch>
+    
+    # No cachear HTML
+    <FilesMatch "\.(html|php)$">
+        Header set Cache-Control "max-age=0, public, must-revalidate, proxy-revalidate"
+    </FilesMatch>
+</IfModule>
+
+<IfModule mod_deflate.c>
+    # Comprimir archivos
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
+</IfModule>
+
+<IfModule mod_mime.c>
+    # Agregar tipos MIME
+    AddType application/json .json
+    AddType application/manifest+json .webmanifest
+    AddType text/cache-manifest .appcache
+    
+    # UTF-8 por defecto
+    AddCharset UTF-8 .html .css .js .php .json
+</IfModule>
+
+# Prevenir acceso a archivos sensibles
+<FilesMatch "(^#.*#|\.(bak|conf|dist|fla|in[ci]|log|phtml|phar|php[3457]?|phps|shtml|sql|sqlite|sw[op]|tar|tpl|twig|twigc|txt~)|~$)">
+    Deny from all
+    <If "%{REQUEST_FILENAME}" =~ m#(^|/)\.#>
+        Deny from all
+    </If>
+</FilesMatch>
+
+# Permitir acceso a manifest.json
+<Files "manifest.json">
+    Allow from all
+</Files>
+
+# Header para seguridad
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+</IfModule>

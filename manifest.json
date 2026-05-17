@@ -1,0 +1,66 @@
+{
+  "name": "Ruiz - Asistente de Voz Inteligente",
+  "short_name": "Ruiz",
+  "description": "Controlador de voz inteligente para tu celular. Di 'Ey Ruiz' para activar comandos de voz.",
+  "start_url": "./APP.php",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0f172a",
+  "theme_color": "#6366f1",
+  "scope": "./",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%236366f1' width='192' height='192'/><text x='50%' y='50%' font-size='80' font-family='Arial, sans-serif' font-weight='bold' text-anchor='middle' dominant-baseline='middle' fill='white'>🎙️</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect fill='%236366f1' width='512' height='512'/><text x='50%' y='50%' font-size='250' font-family='Arial, sans-serif' font-weight='bold' text-anchor='middle' dominant-baseline='middle' fill='white'>🎙️</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["productivity", "utilities"],
+  "screenshots": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 540 720'><rect fill='%236366f1' width='540' height='720'/><text x='50%' y='350' font-size='100' font-family='Arial, sans-serif' font-weight='bold' text-anchor='middle' dominant-baseline='middle' fill='white'>RUIZ</text></svg>",
+      "sizes": "540x720",
+      "type": "image/svg+xml",
+      "form_factor": "narrow"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Activar Micrófono",
+      "short_name": "Micrófono",
+      "description": "Abre Ruiz y activa el reconocimiento de voz",
+      "url": "./APP.php?action=mic",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%236366f1' width='192' height='192'/><text x='50%' y='50%' font-size='80' font-family='Arial, sans-serif' font-weight='bold' text-anchor='middle' dominant-baseline='middle' fill='white'>🎤</text></svg>",
+          "sizes": "192x192",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Ver Comandos",
+      "short_name": "Comandos",
+      "description": "Muestra todos los comandos disponibles",
+      "url": "./APP.php?action=commands",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%236366f1' width='192' height='192'/><text x='50%' y='50%' font-size='80' font-family='Arial, sans-serif' font-weight='bold' text-anchor='middle' dominant-baseline='middle' fill='white'>📋</text></svg>",
+          "sizes": "192x192",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ],
+  "prefer_related_applications": false,
+  "related_applications": [],
+  "dir": "ltr",
+  "lang": "es"
+}

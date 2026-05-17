@@ -1,0 +1,619 @@
+/* ===== ESTILOS GENERALES ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #6366f1;
+    --primary-dark: #4f46e5;
+    --primary-light: #818cf8;
+    --secondary-color: #ec4899;
+    --background: #0f172a;
+    --surface: #1e293b;
+    --surface-light: #334155;
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --error: #ef4444;
+    --border-radius: 20px;
+    --transition: all 0.3s ease;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, var(--background) 0%, var(--surface) 100%);
+    color: var(--text-primary);
+    overflow-x: hidden;
+}
+
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+
+/* ===== HEADER ===== */
+.header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+    margin-bottom: 20px;
+}
+
+.header-content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.app-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 5px;
+    letter-spacing: -0.5px;
+}
+
+.subtitle {
+    font-size: 0.95rem;
+    opacity: 0.9;
+    font-weight: 300;
+}
+
+/* ===== MAIN CONTENT ===== */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* ===== VISUALIZADOR ===== */
+.visualizer-container {
+    text-align: center;
+    margin-bottom: 30px;
+    background: var(--surface);
+    padding: 30px 20px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.visualizer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 8px;
+    height: 80px;
+    margin-bottom: 20px;
+}
+
+.wave {
+    width: 8px;
+    height: 30px;
+    background: linear-gradient(180deg, var(--primary-color), var(--primary-light));
+    border-radius: 4px;
+    animation: wave 0.6s ease-in-out infinite;
+}
+
+.wave:nth-child(1) { animation-delay: 0s; }
+.wave:nth-child(2) { animation-delay: 0.1s; }
+.wave:nth-child(3) { animation-delay: 0.2s; }
+.wave:nth-child(4) { animation-delay: 0.1s; }
+.wave:nth-child(5) { animation-delay: 0s; }
+
+.visualizer.inactive .wave {
+    height: 10px;
+    opacity: 0.3;
+    animation: none;
+}
+
+@keyframes wave {
+    0%, 100% { height: 10px; }
+    50% { height: 60px; }
+}
+
+.status {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* ===== PANEL DE CONTROL ===== */
+.control-panel {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.btn-mic {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 120px;
+    height: 120px;
+    border: 4px solid var(--primary-color);
+    border-radius: 50%;
+    background: var(--surface);
+    color: var(--primary-color);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.2);
+}
+
+.btn-mic:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px rgba(99, 102, 241, 0.4);
+}
+
+.btn-mic:active {
+    transform: scale(0.95);
+}
+
+.btn-mic.listening {
+    border-color: var(--success);
+    color: var(--success);
+    background: rgba(16, 185, 129, 0.1);
+    animation: pulse-border 1s ease-in-out infinite;
+}
+
+.mic-icon {
+    font-size: 2rem;
+}
+
+.btn-text {
+    font-size: 0.8rem;
+}
+
+@keyframes pulse-border {
+    0%, 100% { box-shadow: 0 8px 20px rgba(16, 185, 129, 0.2); }
+    50% { box-shadow: 0 8px 30px rgba(16, 185, 129, 0.5); }
+}
+
+/* ===== INDICADOR DE ESCUCHA ===== */
+.listening-indicator {
+    text-align: center;
+    margin-bottom: 30px;
+    display: none;
+}
+
+.listening-indicator.active {
+    display: block;
+}
+
+.pulse {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto 10px;
+    border-radius: 50%;
+    background: var(--success);
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.listening-indicator p {
+    color: var(--success);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+/* ===== PANEL DE RESPUESTAS ===== */
+.response-panel {
+    background: var(--surface);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    margin-bottom: 30px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.recognized-text,
+.ruiz-response {
+    margin-bottom: 20px;
+}
+
+.recognized-text:last-child,
+.ruiz-response:last-child {
+    margin-bottom: 0;
+}
+
+.label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.text,
+.response-text {
+    font-size: 1rem;
+    color: var(--text-primary);
+    padding: 12px;
+    background: var(--surface-light);
+    border-left: 4px solid var(--primary-color);
+    border-radius: 8px;
+    word-wrap: break-word;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.ruiz-response .response-text {
+    border-left-color: var(--secondary-color);
+}
+
+/* ===== SECCIÓN DE COMANDOS ===== */
+.commands-section {
+    background: var(--surface);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    margin-bottom: 30px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.commands-section h2 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: var(--text-primary);
+}
+
+.commands-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+
+@media (min-width: 500px) {
+    .commands-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.command-item {
+    background: var(--surface-light);
+    padding: 12px;
+    border-radius: 12px;
+    border-left: 3px solid var(--primary-color);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.command-item:hover {
+    background: rgba(99, 102, 241, 0.1);
+    transform: translateX(4px);
+}
+
+.command-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--primary-light);
+}
+
+.command-desc {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+/* ===== SECCIÓN DE HISTORIAL ===== */
+.history-section {
+    background: var(--surface);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    margin-bottom: 30px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.history-section h2 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: var(--text-primary);
+}
+
+.history-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.history-item {
+    background: var(--surface-light);
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    border-left: 3px solid var(--success);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.history-item-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.history-item-command {
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.history-item-time {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+}
+
+.empty-history {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 20px;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+    background: var(--surface);
+    padding: 15px;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--surface-light);
+    margin-top: auto;
+}
+
+/* ===== SCROLLBAR PERSONALIZADA ===== */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--surface);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--surface-light);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 480px) {
+    .app-title {
+        font-size: 2rem;
+    }
+
+    .subtitle {
+        font-size: 0.9rem;
+    }
+
+    .main-content {
+        padding: 15px;
+    }
+
+    .btn-mic {
+        width: 100px;
+        height: 100px;
+    }
+
+    .mic-icon {
+        font-size: 1.8rem;
+    }
+
+    .btn-text {
+        font-size: 0.75rem;
+    }
+
+    .commands-section h2,
+    .history-section h2 {
+        font-size: 1.15rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .header {
+        padding: 15px;
+    }
+
+    .app-title {
+        font-size: 1.8rem;
+    }
+
+    .commands-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===== EFECTOS ADICIONALES ===== */
+
+/* Efecto de glow en el botón micrófono */
+.btn-mic::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, transparent 70%);
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.btn-mic:hover::before {
+    opacity: 1;
+}
+
+/* Animación de entrada suave */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.header {
+    animation: slideIn 0.5s ease-out;
+}
+
+.main-content > * {
+    animation: slideIn 0.5s ease-out forwards;
+}
+
+.main-content > *:nth-child(1) { animation-delay: 0s; }
+.main-content > *:nth-child(2) { animation-delay: 0.1s; }
+.main-content > *:nth-child(3) { animation-delay: 0.2s; }
+.main-content > *:nth-child(4) { animation-delay: 0.3s; }
+.main-content > *:nth-child(5) { animation-delay: 0.4s; }
+.main-content > *:nth-child(6) { animation-delay: 0.5s; }
+
+/* Estilos para el contenedor principal */
+.container {
+    background: linear-gradient(180deg, var(--background) 0%, var(--surface) 100%);
+}
+
+/* Sombra mejorada para los paneles */
+.control-panel,
+.response-panel,
+.commands-section,
+.history-section {
+    backdrop-filter: blur(10px);
+    background: rgba(30, 41, 59, 0.7);
+}
+
+/* Efecto de hover mejorado en items de comando */
+.command-item {
+    position: relative;
+    overflow: hidden;
+}
+
+.command-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+.command-item:hover::before {
+    left: 100%;
+}
+
+/* Mejora de contraste en modo oscuro */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background: #0a0f1a;
+        --surface: #141f2e;
+        --surface-light: #1e2d40;
+    }
+}
+
+/* Animación suave para el campo de respuesta */
+.response-text {
+    animation: slideIn 0.3s ease-out;
+}
+
+/* Mejorar legibilidad del texto */
+.text,
+.response-text {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    letter-spacing: 0.2px;
+}
+
+/* Botón de micrófono mejorado con gradiente */
+.btn-mic {
+    position: relative;
+    background: linear-gradient(135deg, var(--surface) 0%, var(--surface-light) 100%);
+}
+
+.btn-mic.listening {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+}
+
+/* Mejora en la navegación por teclado */
+button:focus-visible,
+.btn-mic:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Mejorar visualización de listas */
+.history-list {
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-color) var(--surface);
+}
+
+/* Estilos para accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Estilos para pantallas pequeñas */
+@media (max-height: 600px) {
+    .header {
+        padding: 10px;
+    }
+
+    .main-content {
+        padding: 10px;
+    }
+
+    .visualizer-container {
+        margin-bottom: 15px;
+        padding: 15px 10px;
+    }
+
+    .btn-mic {
+        width: 90px;
+        height: 90px;
+    }
+
+    .commands-section,
+    .history-section {
+        margin-bottom: 15px;
+    }
+}
+
